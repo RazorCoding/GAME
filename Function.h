@@ -5,13 +5,55 @@
 #define COL 3
 #define ROW 5
 
+// Functions Declaration
+void banner();
+bool DrawBorad();
+int MoveLeft(int);
+void InsertMove(char , int);
+void ComputerMove();
+bool Win(char );
+bool check(int ,char);
+
+
 // Map Array
 char Map[COL][ROW] = {{'-','|','-','|','-'},
 	{'-','|','-','|','-'},
 	{'-','|','-','|','-'}};
 
-// Draw Map Funciton.
+void banner()
+{
+	std::cout << R"(
 
+████████╗██╗ ██████╗████████╗ █████╗  ██████╗████████╗ ██████╗ ███████╗
+╚══██╔══╝██║██╔════╝╚══██╔══╝██╔══██╗██╔════╝╚══██╔══╝██╔═══██╗██╔════╝
+   ██║   ██║██║        ██║   ███████║██║        ██║   ██║   ██║█████╗  
+   ██║   ██║██║        ██║   ██╔══██║██║        ██║   ██║   ██║██╔══╝  
+   ██║   ██║╚██████╗   ██║   ██║  ██║╚██████╗   ██║   ╚██████╔╝███████╗
+   ╚═╝   ╚═╝ ╚═════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝   ╚═╝    ╚═════╝ ╚══════╝
+	)" << std::endl;
+}
+bool check(int m, char P)
+{
+	if(m >= 1 && m <= 9)
+	{
+		std::cout << "Move Check OK!!" << std::endl;
+		return true;
+	}else
+	{
+		while(m <= 1 || m >= 9)
+		{
+			std::cout << "ReEnter you Move: It should be [1-9] " << std::endl;
+			std::cout << P << " Move: ";
+			std::cin  >> m;
+			
+		}
+		if(m >= 1 && m <= 9)
+		{
+			return true;
+		}
+	}
+	return false;
+}
 bool DrawBorad()
 {
 	for(int i=0;i<COL;i++)
@@ -24,77 +66,191 @@ bool DrawBorad()
 	}
 	return 0;
 }
-int Check(int m)
+int MoveLeft(int m)
 {
 	int t=0;
 	for(int i=0;i<COL;i++)
 	{
 		for(int y=0;y<ROW;y++)
 		{
-			if(Map[i][y] == ' ')
+			if(Map[i][y] == '-')
 			{
 				t++;
 			}
 		}
 	}
+	std::cout << "Move Left " << t << std::endl;
 	return t;
 }
 
-void Insert(char s, int m)
+void InsertMove(char s, int m)
 {
 	switch(m)
 	{
 		case 1:
-			Map[0][0] = s;
-			break;
+			if(Map[0][0] == '-')
+			{
+				Map[0][0] = s;
+				break;
+			}else{
+				if(Map[0][0] == 'x' || Map[0][0] == 'o')
+				{
+					std::cout << "Postion taken!!! Cannot Be filled" << std::endl;
+					break;
+				}
+			}
 		case 2: 
-			Map[0][2] = s;
-			break;
+			if(Map[0][2] == '-')
+			{
+				Map[0][2] = s;
+				break;
+			}else{
+				if(Map[0][2] == 'x' || Map[0][2] == 'o')
+				{
+					std::cout << "Postion taken!!! Cannot Be filled" << std::endl;
+					break;
+				}
+			}
 		case 3: 
-			Map[0][4] = s;
-			break;
+		if(Map[0][4] == '-')
+			{
+				Map[0][4] = s;
+				break;
+			}else{
+				if(Map[0][4] == 'x' || Map[0][4] == 'o')
+				{
+					std::cout << "Postion taken!!! Cannot Be filled" << std::endl;
+					break;
+				}
+			}
 		case 4:
-			Map[1][0] = s;
-			break;
+		if(Map[1][0] == '-')
+			{
+				Map[1][0] = s;
+				break;
+			}else{
+				if(Map[1][0] == 'x' || Map[1][0] == 'o')
+				{
+					std::cout << "Postion taken!!! Cannot Be filled" << std::endl;
+					break;
+				}
+			}
 		case 5:
-			Map[1][2] = s;
-			break;
+		if(Map[1][2] == '-')
+			{
+				Map[1][2] = s;
+				break;
+			}else{
+				if(Map[1][2] == 'x' || Map[1][2] == 'o')
+				{
+					std::cout << "Postion taken!!! Cannot Be filled" << std::endl;
+					break;
+				}
+			}
 		case 6:
-			Map[1][4] = s;
-			break;
+		if(Map[1][4] == '-')
+			{
+				Map[1][4] = s;
+				break;
+			}else{
+				if(Map[1][4] == 'x' || Map[1][4] == 'o')
+				{
+					std::cout << "Postion taken!!! Cannot Be filled" << std::endl;
+					break;
+				}
+			}
 		case 7:
-			Map[2][0] = s;
-			break;
+		if(Map[2][0] == '-')
+			{
+				Map[2][0] = s;
+				break;
+			}else{
+				if(Map[2][0] == 'x' || Map[2][0] == 'o')
+				{
+					std::cout << "Postion taken!!! Cannot Be filled" << std::endl;
+					break;
+				}
+			}
 		case 8:
-			Map[2][2] = s;
-			break;
+			if(Map[2][2] == '-')
+			{
+				Map[2][2] = s;
+				break;
+			}else{
+				if(Map[2][2] == 'x' || Map[2][2] == 'o')
+				{
+					std::cout << "Postion taken!!! Cannot Be filled" << std::endl;
+					break;
+				}
+			}
 		case 9:
-			Map[2][4] = s;
-			break;
-		default:
-			std::cerr << "Wrong Number" << std::endl;
-			break;
-	
+			if(Map[2][4] == '-')
+			{
+				Map[2][4] = s;
+				break;
+			}else{
+				if(Map[2][4] == 'x' || Map[2][4] == 'o')
+				{
+					std::cout << "Postion taken!!! Cannot Be filled" << std::endl;
+					break;
+				}
+			}
 	}
 }
-void ComputerMove(char SelectedPlayer)
+void ComputerMove(char s)
 {
-	int temp[2];
-	int *p = new int;
-	// Searching for empty block
-	for(int i=0;i<COL;i++)
+	char cp = char('o'); //Defineing Computer charecter
+
+	// Computer Moves if else statements
+	// Map first line Block.
+	if(Map[0][0] == char(s) && Map[0][2] == char(s))
 	{
-		for(int y=0;y<ROW;y++)
-		{
-			if(Map[i][y] == '-')
-			{
-				temp[0] = i;
-				temp[1] = y;
-				break;
-			}else{std::cout << "Its not assigning." << std::endl;}
-		}
+		Map[0][4] = cp;
+	}else if(Map[0][4] == char(s) && Map[0][2] == char(s))
+	{
+		Map[0][0] = cp;
 	}
-	Map[temp[0]][temp[1]] = SelectedPlayer;
+	// Map Second line Block.
+	else if(Map[1][0] == char(s) && Map[1][2] == char(s))
+	{
+		Map[1][4] = cp;
+	}else if(Map[1][4] = char(s) && Map[1][2] == char(s))
+	{
+		Map[1][0] = cp;
+	}
+	// Map Thried line Block.
+	else if(Map[2][0] == char(s) && Map[2][2] == char(s))
+	{
+		Map[2][4] = cp;
+	}else if(Map[2][4] == char(s) && Map[2][2] == char(s))
+	{
+		Map[2][0] = cp;
+	}
+	// Map Vertical First line Block.
+	else if(Map[0][0] == char(s) && Map[1][0] == char(s))
+	{
+		Map[3][0]  = cp;
+	}else if(Map[3][0] == char(s) && Map[0][1] == char(s))
+	{
+		Map[0][0] = cp;
+	}
+	// Map Vertical second line Block
+	else if(Map[0][2] == char(s) && Map[1][2] == char(s))
+	{
+		Map[2][2] = cp;
+	}else if(Map[2][2] == char(s) && Map[1][2] == char(s))
+	{
+		Map[0][2] = cp;
+	}
+	// Map Vertical Thrid line block.
+	else if(Map[0][4] == char(s) && Map[1][4] == char(s))
+	{
+		Map[2][4] = cp;
+	}else if(Map[2][4] = char(s) && Map[1][4] == char(s))
+	{
+		Map[0][4] = cp;
+	}else {std::cout << "Computer Wins" << std::endl;}
+
 }
 bool Win(char s)
 {
@@ -105,66 +261,41 @@ bool Win(char s)
 	 */
 	// Horiznotal lines
 	if(Map[0][0] == s &&  Map[0][2] == s &&  Map[0][4] == s){
+		std::cout << "Player " << s << " Wins" << std::endl;
 		return true;
 	}else if(Map[1][0] == s && Map[1][2] == s && Map[1][4] == s ){
+		std::cout << "Player " << s << " Wins" << std::endl;		
 		return true;
-	}else if(Map[2][0] == s && Map[2][2] == s && Map[2][4] == s ){		     return true;
+	}else if(Map[2][0] == s && Map[2][2] == s && Map[2][4] == s ){	
+		std::cout << "Player " << s << " Wins" << std::endl;		
+		return true;
 	}
 
 	// Cross lines
 	else if(Map[0][0] == s && Map[1][2] == s && Map[2][4] == s ){
+		std::cout << "Player " << s << " Wins" << std::endl;		
 		return true;	
 	}else if(Map[0][4] == s && Map[1][2] == s && Map[2][0] == s ){
+		std::cout << "Player " << s << " Wins" << std::endl;
 		return true;
 	}
 
 	// vertical lines
 	else if(Map[0][0] == s  && Map[1][0] == s && Map[2][0] == s)
 	{
+		std::cout << "Player " << s << " Wins" << std::endl;
 		return true;
 	}
 	else if(Map[0][2] == s  && Map[1][2] == s && Map[2][2] == s ){
+		std::cout << "Player " << s << " Wins" << std::endl;
 		return true;
 	}
 	else if(Map[0][4]== s && Map[1][4] == s && Map[2][4] == s){
+		std::cout << "Player " << s << " Wins" << std::endl;
 		return true;
 	}
-	else
-	{
-		// Horizontal lines
-		if(Map[0][0] == s && Map[0][2] ==  s && Map[0][4] == s)
-		{
-			return true;
-		}else if(Map[1][0] == s && Map[1][2] == s && Map[1][4] == s)
-		{
-			return true;
-		}else if(Map[2][0] == s && Map[2][2] == s && Map[2][4] == s)		{
-			return true;
-		}
-
-		// Cross lines
-		else if(Map[0][0] == s && Map[1][2] == s && Map[2][4] == s)
-		{
-			return true;
-		}else if(Map[0][4] == s && Map[1][2] == s && Map[2][0] == s)
-		{
-			return true;
-		}
-
-		// Verticals lines
-		else if(Map[0][0] == s  && Map[1][0] == s && Map[2][0] == s)
-		{
-			return true;
-		}
-		else if(Map[0][2] == s  && Map[1][2] == s && Map[2][2] == s )		{
-			return true;
-		}
-
-		else if(Map[0][4]== s && Map[1][4] == s && Map[2][4] == s)		{
-			return true;
-		}
-
+	else{
+		return false;
 	}
-	return false;	
 }
 #endif
