@@ -1,6 +1,8 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 #include <iostream>
+#include <string>
+#include <limits>
 
 #define COL 3
 #define ROW 5
@@ -8,7 +10,7 @@
 // Functions Declaration
 void banner();
 bool DrawBorad();
-int MoveLeft(int);  
+int MoveLeft(int);
 void InsertMove(char, int);
 void ComputerMove();
 bool Win(char);
@@ -26,73 +28,76 @@ void Setting();
 // Static variables
 static bool GameOver = false;
 // default Value x and o
-static int Sel=0;
-static int Sel1=0;
-static char P1 = 'x'; // Player 1
-static char P2 = 'o'; // Player 2
-static int Move = 0;	  // Move store
+static int Sel = 0;
+static int Sel1 = 0;
+static char P1 = 'x';	 // Player 1
+static char P2 = 'o';	 // Player 2
+static int Move = 0;	 // Move store
 static int Selected = 0; // Choice store
-static char RInput;	  // restart game varibale
-static char CInput;	  // Character change variable
+static char RInput;		 // restart game varibale
+static char CInput;		 // Character change variable
 // Map Array
 char Map[COL][ROW] = {{'-', '|', '-', '|', '-'},
 					  {'-', '|', '-', '|', '-'},
 					  {'-', '|', '-', '|', '-'}};
 void GameOn()
 {
-	jump:
+jump:
 	banner();
-	
+
 	std::cout << "1.Single Player Mode" << std::endl;
 	Starline(20);
 	std::cout << "2.Double Player Mode" << std::endl;
 	Starline(20);
 	std::cout << "3.Settings" << std::endl;
 	Starline(20);
- 	std::cout << "1-3: ";
+	std::cout << "1-3: ";
 
 	do
 	{
 		std::cin >> Sel;
-		std::cin.clear();
-		std::cin.ignore(256, '\n');
+		// std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	} while (std::cin.fail());
-	
 
-	switch(Sel)
+	switch (Sel)
 	{
-		case 1:
-				SinglePlayerMode();
-				Rplay();
-				break;
-		case 2:
-			DoublePlayerMode();
-			Rplay();
-			break;
-		case 3:
-			Starline(50);
-			std::cout << "\t\t\t\tSettings\n";
-			Starline(50);
-			std::cout << "1.Change Charecter\n" << std::endl;
-			Starline(20);
-			do{
-				std::cin >> Sel1;
-			}while(std::cin.fail());
+	case 1:
+		SinglePlayerMode();
+		Rplay();
+		break;
+	case 2:
+		DoublePlayerMode();
+		Rplay();
+		break;
+	case 3:
+		Starline(50);
+		std::cout << "\t\t\t\tSettings\n";
+		Starline(50);
+		std::cout << "1.Change Charecter\n"
+				  << std::endl;
+		Starline(20);
+		std::cin >> Sel1;
+		while (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore();
+			std::cin >> Sel1;
+		}
 
-			switch(Sel1)
-			{
-				case 1:
-						Setting();
-						goto jump;
-						break;
-				default:
-					std::cout << "1-1" << std::endl;
-			}
+		switch (Sel1)
+		{
+		case 1:
+			Setting();
+			goto jump;
 			break;
 		default:
-			std::cout << "1-2" << std::endl;
+			std::cout << "1-1" << std::endl;
+		}
+		break;
+	default:
+		std::cout << "1-3" << std::endl;
 	}
-
 }
 void Setting()
 {
@@ -131,8 +136,13 @@ void SinglePlayerMode()
 	while (!GameOver)
 	{
 		Computer(P2);
-		if(Win(P2))
+		if (Win(P2))
 		{
+			Starline(30);
+			std::cout << "Computer Wins " << P2 << std::endl;
+			DrawBorad();
+			Starline(30);
+
 			GameOver = true;
 			break;
 			Rplay();
@@ -156,6 +166,11 @@ void SinglePlayerMode()
 
 			if (Win(P1))
 			{
+				std::cout << "Winner is " << P1 << std::endl;
+				Starline(30);
+				DrawBorad();
+				Starline(30);
+
 				GameOver = true;
 				break;
 				Rplay();
@@ -166,7 +181,7 @@ void SinglePlayerMode()
 }
 void Rplay()
 {
-	std::cout << "Rplay: y/n" << std::endl;
+	std::cout << "Re-play: y/n" << std::endl;
 	std::cin >> RInput;
 
 	switch (RInput)
@@ -196,7 +211,7 @@ void DoublePlayerMode()
 	{
 
 		DrawBorad();
-		std::cout << "P1 " << P1 << " Move: ";
+		std::cout << P1 << " [1-9]: ";
 		std::cin >> Move;
 
 		int t = MoveLeft(Move);
@@ -220,7 +235,7 @@ void DoublePlayerMode()
 
 		Move = 0; // Reseting Value of Move Variable
 
-		std::cout << "P2 " << P2 << "Move: ";
+		std::cout << P2 << " [1-9]: ";
 		std::cin >> Move;
 		MoveLeft(Move);
 
@@ -240,7 +255,7 @@ void DoublePlayerMode()
 }
 void Starline(int y)
 {
-	for(int i=0;i<y;i++)
+	for (int i = 0; i < y; i++)
 	{
 		std::cout << "*";
 	}
@@ -263,18 +278,22 @@ void banner()
 
 void ResetBorad()
 {
-	//Reseting Characters
+	// Reseting Characters
 	P1 = 'x';
 	P2 = 'o';
 	// Reseting Map
-	for(int i=0;i<COL;i++)
+	for (int i = 0; i < COL; i++)
 	{
-		for(int t=0;t<ROW;t++)
+		for (int t = 0; t < ROW; t++)
 		{
-			if(Map[i][t] == P1 || Map[i][t] == P2)
+			if (Map[i][t] == P1 || Map[i][t] == P2)
 			{
 				Map[i][t] = '-';
-			}else{std::cerr << "Error in updating broad" << std::endl;}
+			}
+			else
+			{
+				std::cerr << "Error on updating broad" << std::endl;
+			}
 		}
 	}
 }
@@ -282,11 +301,11 @@ void ResetBorad()
 void Computer(char s)
 {
 	bool game = false;
-	for(int i=0;i<COL;i++)
+	for (int i = 0; i < COL; i++)
 	{
-		for(int j=0;j<ROW;j++)
+		for (int j = 0; j < ROW; j++)
 		{
-			if(Map[i][j] == '-')
+			if (Map[i][j] == '-')
 			{
 				std::cout << "Computer Move Check!" << std::endl;
 				Map[i][j] = s;
@@ -294,11 +313,11 @@ void Computer(char s)
 				break;
 			}
 		}
-		if(game != false)
+		if (game != false)
 		{
 			break;
 		}
-	 }
+	}
 }
 bool check(int m, char P)
 {
@@ -318,28 +337,24 @@ bool check(int m, char P)
 			return true;
 		}
 	}
-	// if (m >= 1 && m <= 9)
-	// {
-	// 	return true;
-	// }
-
 	return false;
 }
 bool DrawBorad()
 {
-	for (int i = 0; i < COL; i++)
-	{
-		for (int y = 0; y < ROW; y++)
+		for(int i = 0; i < COL; i++)
 		{
-			std::cout << Map[i][y];
+			for (int y = 0; y < ROW; y++)
+			{
+				std::cout << Map[i][y];
+			}
+			std::cout << std::endl;
 		}
-		std::cout << std::endl;
-	}
+	
 	return true;
 }
 int MoveLeft(int m)
 {
-	int t=0; // Move Left
+	int t = 0; // Move Left
 	for (int i = 0; i < COL; i++)
 	{
 		for (int y = 0; y < ROW; y++)
