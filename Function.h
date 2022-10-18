@@ -499,6 +499,8 @@ void InsertMove(char s, int m)
 				break;
 			}
 		}
+	default:
+		std::cout << "NO POSTITION LEFT" << std::endl;
 	}
 }
 bool Win(char s)
