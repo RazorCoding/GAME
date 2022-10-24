@@ -25,6 +25,8 @@ void CharecterChange();
 void GameOn();
 void Setting();
 
+
+
 // Static variables
 static bool GameOver = false;
 // default Value x and o
@@ -40,6 +42,7 @@ static char CInput;		 // Character change variable
 char Map[COL][ROW] = {{'-', '|', '-', '|', '-'},
 					  {'-', '|', '-', '|', '-'},
 					  {'-', '|', '-', '|', '-'}};
+
 void GameOn()
 {
 jump:
@@ -509,16 +512,28 @@ bool Win(char s)
 	if (Map[0][0] == s && Map[0][2] == s && Map[0][4] == s)
 	{
 		std::cout << "Player " << s << " Wins" << std::endl;
+		Map[0][0] = '_';
+		Map[0][2] = '_';
+		Map[0][4] = '_'; 
+		DrawBorad();
 		return true;
 	}
 	else if (Map[1][0] == s && Map[1][2] == s && Map[1][4] == s)
 	{
 		std::cout << "Player " << s << " Wins" << std::endl;
+		Map[0][0] = '_';
+		Map[0][2] = '_';
+		Map[0][4] = '_';
+		DrawBorad();
 		return true;
 	}
 	else if (Map[2][0] == s && Map[2][2] == s && Map[2][4] == s)
 	{
 		std::cout << "Player " << s << " Wins" << std::endl;
+		Map[0][0] = '_';
+		Map[0][2] = '_';
+		Map[0][4] = '_';
+		DrawBorad();
 		return true;
 	}
 
@@ -526,11 +541,19 @@ bool Win(char s)
 	else if (Map[0][0] == s && Map[1][2] == s && Map[2][4] == s)
 	{
 		std::cout << "Player " << s << " Wins" << std::endl;
+		Map[0][0] = '\\';
+		Map[1][2] = '\\';
+		Map[2][4] = '\\';
+		DrawBorad();
 		return true;
 	}
 	else if (Map[0][4] == s && Map[1][2] == s && Map[2][0] == s)
 	{
 		std::cout << "Player " << s << " Wins" << std::endl;
+		Map[0][4] = '/';
+		Map[1][2] = '/';
+		Map[2][0] = '/';
+		DrawBorad();
 		return true;
 	}
 
@@ -538,15 +561,27 @@ bool Win(char s)
 	else if (Map[0][0] == s && Map[1][0] == s && Map[2][0] == s)
 	{
 		std::cout << "Player " << s << " Wins" << std::endl;
+		Map[0][0] = '_';
+		Map[1][0] = '_';
+		Map[2][0] = '_';
+		DrawBorad();
 		return true;
 	}
 	else if (Map[0][2] == s && Map[1][2] == s && Map[2][2] == s)
 	{
 		std::cout << "Player " << s << " Wins" << std::endl;
+		Map[0][2] = '_';
+		Map[1][2] = '_';
+		Map[2][2] = '_';
+		DrawBorad();
 		return true;
 	}
 	else if (Map[0][4] == s && Map[1][4] == s && Map[2][4] == s)
 	{
+		Map[0][4] = '_';
+		Map[1][4] = '_';
+		Map[2][4] = '_';
+		DrawBorad();
 		std::cout << "Player " << s << " Wins" << std::endl;
 		return true;
 	}
